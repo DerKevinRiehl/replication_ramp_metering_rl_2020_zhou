@@ -1,0 +1,133 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+. : File \\fs.bauwelt.ethz.ch\baug-bauwelt-home$\rbenvenuti\Documents\WindowsPowerShell\profile.ps1 cannot be loaded
+because running scripts is disabled on this system. For more information, see about_Execution_Policies at
+https:/go.microsoft.com/fwlink/?LinkID=135170.
+At line:1 char:3
++ . '\\fs.bauwelt.ethz.ch\baug-bauwelt-home$\rbenvenuti\Documents\Windo ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+PS Microsoft.PowerShell.Core\FileSystem::\\fs.bauwelt.ethz.ch\baug-bauwelt-home$\rbenvenuti\Desktop\05_13_RL_agent_training_01> python 06_07_ctm_with_rl_eval_v3.py
+Cell length      : 0.5 km
+Number of cells  : 13
+Entry cell       : 4  @ 1.5-2.0 km
+Lane-drop cell   : 12 @ 5.5-6.0 km
+Control cell     : 11 @ 5.0-5.5 km
+Mainline demand range: [1000, 4000] veh/h
+Ramp demand range    : [500, 1220] veh/h
+
+Loaded checkpoint : checkpoints/ckpt_best_greedy.pt
+Episode           : 263366
+Total steps       : 105346400
+Epsilon at save   : 0.071814
+
+── Performance indicators: RL controller (ep 263366) ──
+  VKT                : 27696.7 veh·km
+  VHT                : 231.0938 veh·h
+  VHT (with ramp)    : 465.3714 veh·h
+  v_avg              : 119.85 km/h
+  v_avg (with ramp)  : 59.52 km/h
+
+  Total episode reward : -2062.8300
+  → saved: eval_results\scenario_ep263366_density.png
+  → saved: eval_results\scenario_ep263366_smoothed.png
+  → saved: eval_results\scenario_ep263366_raw.png
+  → saved: eval_results\metering_rate_ep263366.png
+  → saved: eval_results\ramp_queue_ep263366.png
+  → saved: eval_results\demand_ep263366_noise50.png
+  → saved: eval_results\demand_ep263366_noise100.png
+  → saved: eval_results\demand_ep263366_noise150.png
+  → saved: eval_results\demand_ep263366_noise200.png
+  → saved: eval_results\demand_ep263366_noise250.png
+
+============================================================
+  Noise std = 50 veh/h
+============================================================
+
+── Performance indicators: RL controller — noise std=50 ──
+  VKT                : 27684.8 veh·km
+  VHT                : 230.9830 veh·h
+  VHT (with ramp)    : 473.8076 veh·h
+  v_avg              : 119.86 km/h
+  v_avg (with ramp)  : 58.43 km/h
+  Total episode reward : -2065.2381
+  → saved: eval_results\scenario_ep263366_noise50_density.png
+  → saved: eval_results\scenario_ep263366_noise50_smoothed.png
+  → saved: eval_results\scenario_ep263366_noise50_raw.png
+  → saved: eval_results\metering_rate_ep263366_noise50.png
+  → saved: eval_results\ramp_queue_ep263366_noise50.png
+
+============================================================
+  Noise std = 100 veh/h
+============================================================
+
+── Performance indicators: RL controller — noise std=100 ──
+  VKT                : 27612.9 veh·km
+  VHT                : 230.5089 veh·h
+  VHT (with ramp)    : 459.7705 veh·h
+  v_avg              : 119.79 km/h
+  v_avg (with ramp)  : 60.06 km/h
+  Total episode reward : -2093.0317
+  → saved: eval_results\scenario_ep263366_noise100_density.png
+  → saved: eval_results\scenario_ep263366_noise100_smoothed.png
+  → saved: eval_results\scenario_ep263366_noise100_raw.png
+  → saved: eval_results\metering_rate_ep263366_noise100.png
+  → saved: eval_results\ramp_queue_ep263366_noise100.png
+
+============================================================
+  Noise std = 150 veh/h
+============================================================
+
+── Performance indicators: RL controller — noise std=150 ──
+  VKT                : 27564.7 veh·km
+  VHT                : 230.2027 veh·h
+  VHT (with ramp)    : 434.1360 veh·h
+  v_avg              : 119.74 km/h
+  v_avg (with ramp)  : 63.49 km/h
+  Total episode reward : -2114.6542
+  → saved: eval_results\scenario_ep263366_noise150_density.png
+  → saved: eval_results\scenario_ep263366_noise150_smoothed.png
+  → saved: eval_results\scenario_ep263366_noise150_raw.png
+  → saved: eval_results\metering_rate_ep263366_noise150.png
+  → saved: eval_results\ramp_queue_ep263366_noise150.png
+
+============================================================
+  Noise std = 200 veh/h
+============================================================
+
+── Performance indicators: RL controller — noise std=200 ──
+  VKT                : 27668.5 veh·km
+  VHT                : 231.0753 veh·h
+  VHT (with ramp)    : 436.1470 veh·h
+  v_avg              : 119.74 km/h
+  v_avg (with ramp)  : 63.44 km/h
+  Total episode reward : -2102.5715
+  → saved: eval_results\scenario_ep263366_noise200_density.png
+  → saved: eval_results\scenario_ep263366_noise200_smoothed.png
+  → saved: eval_results\scenario_ep263366_noise200_raw.png
+  → saved: eval_results\metering_rate_ep263366_noise200.png
+  → saved: eval_results\ramp_queue_ep263366_noise200.png
+
+============================================================
+  Noise std = 250 veh/h
+============================================================
+
+── Performance indicators: RL controller — noise std=250 ──
+  VKT                : 27622.6 veh·km
+  VHT                : 230.8095 veh·h
+  VHT (with ramp)    : 449.7253 veh·h
+  v_avg              : 119.68 km/h
+  v_avg (with ramp)  : 61.42 km/h
+  Total episode reward : -2125.1315
+  → saved: eval_results\scenario_ep263366_noise250_density.png
+  → saved: eval_results\scenario_ep263366_noise250_smoothed.png
+  → saved: eval_results\scenario_ep263366_noise250_raw.png
+  → saved: eval_results\metering_rate_ep263366_noise250.png
+  → saved: eval_results\ramp_queue_ep263366_noise250.png
+
+Robustness evaluation complete.
+PS Microsoft.PowerShell.Core\FileSystem::\\fs.bauwelt.ethz.ch\baug-bauwelt-home$\rbenvenuti\Desktop\05_13_RL_agent_training_01>
