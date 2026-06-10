@@ -8,9 +8,9 @@ Replication project, Spring Semester 2026
 
 ## Introduction
 
-Ramp metering is a traffic management strategy that regulates the flow of vehicles entering a freeway via on-ramps, with the objective of preventing congestion at downstream bottlenecks. When the bottleneck is located far downstream of the metered ramp, conventional linear feedback controllers such as ALINEA and PI-ALINEA suffer from time-delay effects that can cause instability.
+Ramp metering is a traffic management strategy that regulates the flow of vehicles entering a freeway via on-ramps, with the objective of preventing congestion at downstream bottlenecks. When the bottleneck is located far downstream of the metered ramp, conventional linear feedback controllers such as ALINEA and PI-ALINEA can suffer from time-delay effects that can cause instability.
 
-Zhou et al. (2020) propose an alternative approach: formulating the ramp metering problem as a Q-learning problem in which an intelligent agent learns a nonlinear feedback policy using an artificial neural network (ANN) as a value function approximator. The learned policy takes as input traffic density measurements at three locations along the freeway stretch, and outputs a discrete metering rate without requiring any explicit traffic prediction.
+Zhou et al. (2020) propose an alternative approach by formulating the ramp-metering problem as a Q-learning problem. The traffic environment is simulated with a Cell Transmission Model (CTM), while an intelligent agent learns a nonlinear feedback policy using an artificial neural network (ANN) as a value-function approximator. The learned policy takes as input traffic density measurements at three locations along the freeway stretch, as well as the current ramp demand, and outputs a discrete metering rate without requiring any explicit traffic prediction.
 
 This repository contains the full replication of that study, implemented from scratch using a Cell Transmission Model (CTM) simulation environment. The replication reproduces the no-control and PI-ALINEA benchmark scenarios, implements the RL agent, and provides an extended quantitative performance comparison that was not present in the original article.
 
@@ -61,7 +61,7 @@ Transportation, 2020, Article 8813467. https://doi.org/10.1155/2020/8813467
 │                                                 # containing all performance indicators
 │                                                 # and noise robustness results for the
 │                                                 # selected RL policy
-├── 3_data_visualization/                         # Output figures are saved here automatically
+├── 3_data_visualization/                         # Output figures are saved automatically
 │                                                 # when production scripts are run.
 │                                                 # Not uploaded to keep the repository lean.
 ├── requirements.txt
@@ -72,23 +72,22 @@ Transportation, 2020, Article 8813467. https://doi.org/10.1155/2020/8813467
 
 ## Installation Instructions
 
-Python 3.10 or later is required. Install all dependencies with:
+Python 3.10 or later is required. The following packages are needed:
+
+| Package    | Version used | Purpose                              |
+|------------|-------------|--------------------------------------|
+| Python     | 3.10.10     | Programming language                 |
+| NumPy      | 2.2.6       | Numerical computation                |
+| PyTorch    | 2.12.0      | Neural network implementation        |
+| Matplotlib | 3.10.9      | Visualisation                        |
+| SciPy      | 1.15.3      | Signal processing and interpolation  |
+| tqdm       | 4.67.3      | Training progress tracking           |
+
+Install all dependencies with:
 
 ```
 pip install -r requirements.txt
 ```
-
-The `requirements.txt` file contains:
-
-```
-numpy
-torch
-tqdm
-scipy
-matplotlib
-```
-
-No GPU is required. All training was performed on CPU.
 
 ## Run Instructions
 
@@ -100,7 +99,7 @@ Navigate to `1_code_produce/benchmark_controllers/` and run:
 python benchmark_controllers.py
 ```
 
-This will run the no-control simulation, the ALINEA 1D sweep (111 values of K_R), and the PI-ALINEA 2D grid search (111 × 111 combinations of K_R and K_P). Runtime is approximately 20–30 minutes. All result figures are saved to a `benchmark_controllers_results/` subfolder and the two CSV result tables are saved automatically.
+This will run the no-control simulation, the ALINEA 1D sweep (111 values of K_R), and the PI-ALINEA 2D grid search (111 × 111 combinations of K_R and K_P). Runtime is approximately 1 minute, excluding plot generation. All result figures are saved to a `benchmark_controllers_results/` subfolder and the two CSV result tables are saved automatically.
 
 ### RL Training
 
@@ -193,7 +192,7 @@ The following assumptions and implementation decisions were made during replicat
 
 **Convergence criterion** — The paper states that learning converged after approximately 700,000 episodic iterations but does not specify a convergence criterion. All training campaigns were run for the full 700,000 episodes. No natural convergence was observed; the rolling mean reward plateaued after approximately 200,000–300,000 episodes without further improvement.
 
-**Checkpoint selection** — Since no checkpoint selection rule was reported, all checkpoints were evaluated retrospectively using deterministic greedy action selection. The checkpoint with the highest greedy evaluation reward was selected as the final policy. The best greedy reward of −2062.83 was obtained at episode 263,366, stored as `ckpt_best_greedy.pt`.
+**Policy selection** — Policy selection — Since no checkpoint selection rule was reported in the original article, two complementary strategies were used. First, all periodic checkpoints were scanned retrospectively using rl_scan_checkpoints.py with deterministic greedy evaluation, confirming that the best policy was reached well before episode 700,000 and identifying the approximate episode range of peak performance. Second, targeted training campaigns were run using `rl_resume_bruteforce.py`, which evaluates the policy greedily after every training episode and overwrites `ckpt_best_greedy.pt` whenever a new best is found. The final selected checkpoint, achieving a greedy evaluation reward of −2062.83, was obtained through this bruteforce per-episode evaluation strategy.
 
 **Benchmark optimisation** — The original paper benchmarks the RL controller against a PI controller with fixed gains (K_R = 100, K_P = 4). This replication additionally performs a grid search over K_R ∈ [1, 110] and K_P ∈ [1, 110] for PI-ALINEA, and a 1D sweep for ALINEA, optimising for two criteria: average speed without ramp queue and average speed with ramp queue. The optimised PI-ALINEA controller matches the RL controller on episode reward, suggesting the paper's benchmark comparison is not fully fair.
 
