@@ -27,46 +27,48 @@ Transportation, 2020, Article 8813467. https://doi.org/10.1155/2020/8813467
 ```
 ./
 ├── 0_original_papers/
-│   └── Zhou_et_al_2020.pdf                  # Original paper
-├── 0_original_repository/                   # (empty — no code was provided by the authors)
+│   └── Zhou_et_al_2020.pdf                       # Original paper
 ├── 1_code_produce/
 │   ├── benchmark_controllers/
-│   │   └── benchmark_controllers.py         # No-control, ALINEA, PI-ALINEA simulation,
-│   │                                        # grid search optimisation, and results tables
+│   │   └── benchmark_controllers.py              # No-control, ALINEA, PI-ALINEA simulation,
+│   │                                             # grid search optimisation, and results tables
 │   └── rl/
-│       ├── rl_train.py                      # Train RL agent from scratch
-│       ├── rl_resume.py                     # Resume training from a checkpoint
-│       ├── rl_resume_bruteforce.py          # Resume with greedy evaluation after every
-│       │                                    # episode; saves best-performing ANN
-│       ├── rl_scan_checkpoints.py           # Retrospective greedy scan of all saved
-│       │                                    # checkpoints; identifies best policy
-│       ├── rl_eval.py                       # Load checkpoint, run greedy evaluation,
-│       │                                    # noise robustness analysis, generate figures
-│       ├── rl_plot_learning_curve.py        # Plot training episode reward and rolling
-│       │                                    # standard deviation from episode_rewards.csv
+│       ├── rl_train.py                           # Train RL agent from scratch
+│       ├── rl_resume.py                          # Resume training from a checkpoint
+│       ├── rl_resume_bruteforce.py               # Resume with greedy evaluation after every
+│       │                                         # episode; saves best-performing ANN
+│       ├── rl_scan_checkpoints.py                # Retrospective greedy scan of all saved
+│       │                                         # checkpoints; identifies best policy
+│       ├── rl_eval.py                            # Load checkpoint, run greedy evaluation,
+│       │                                         # noise robustness analysis, generate figures
+│       ├── rl_plot_learning_curve.py             # Plot training episode reward and rolling
+│       │                                         # standard deviation from episode_rewards.csv
 │       ├── rl_plot_learning_curve_bruteforce.py  # Plot deterministic greedy reward from
 │       │                                         # greedy_rewards.csv
-│       └── rl_fix_reward_csv.py            # Utility: repairs episode_rewards.csv episode
-│                                            # numbering after training was resumed
-├── 1_data_source/                           # (empty — demand profiles reconstructed from
-│                                            # paper figures; no external data required)
+│       └── rl_fix_reward_csv.py                  # Utility: repairs episode_rewards.csv episode
+│                                                 # numbering after training was resumed
 ├── 2_data_produced/
 │   ├── benchmark_controllers/
-│   │   ├── table1_full_results.csv          # Performance indicators for all controllers
-│   │   │                                    # and demand scenarios
-│   │   └── table2_gap.csv                   # Percentage gap from best per indicator
+│   │   ├── table1_full_results.csv               # Performance indicators for all controllers
+│   │   │                                         # and demand scenarios (benchmark only)
+│   │   └── table2_pct_gap.csv                    # Percentage gap from best per indicator
+│   │                                             # (benchmark only; 0.0% = best)
 │   └── rl/
-│       ├── episode_rewards.csv              # Training episode rewards (700k episodes)
-│       ├── greedy_rewards.csv               # Deterministic greedy evaluation rewards
-│       └── best_ann.pt                      # Best-performing ANN checkpoint
-├── 3_code_visualization/                    # (visualisation is integrated in the
-│                                            # production code scripts above)
-├── 3_data_visualization/
-│   ├── benchmark_controllers/               # Output figures from benchmark_controllers.py
-│   └── rl/                                  # Output figures from rl_eval.py
+│       ├── episode_rewards.csv                   # Training episode rewards (700k episodes)
+│       ├── greedy_rewards.csv                    # Deterministic greedy evaluation rewards
+│       ├── ckpt_best_greedy.pt                   # Best-performing ANN checkpoint
+│       └── rl_performance_indicators.txt         # Full terminal output of rl_eval.py,
+│                                                 # containing all performance indicators
+│                                                 # and noise robustness results for the
+│                                                 # selected RL policy
+├── 3_data_visualization/                         # Output figures are saved here automatically
+│                                                 # when production scripts are run.
+│                                                 # Not uploaded to keep the repository lean.
 ├── requirements.txt
 └── README.md
 ```
+
+**Note on combined results tables:** The RL controller results were added manually to the benchmark tables for the final comparison presented in the report. The exact values can be extracted from `2_data_produced/rl/rl_performance_indicators.txt`, which contains the complete terminal output of `rl_eval.py` including all performance indicators across base and noisy demand scenarios.
 
 ## Installation Instructions
 
@@ -98,7 +100,7 @@ Navigate to `1_code_produce/benchmark_controllers/` and run:
 python benchmark_controllers.py
 ```
 
-This will run the no-control simulation, the ALINEA 1D sweep (111 values of K_R), and the PI-ALINEA 2D grid search (111 × 111 combinations of K_R and K_P). Runtime is approximately 20–30 minutes. All results figures are saved to a `pi_alinea_results/` subfolder and the two CSV result tables are saved automatically.
+This will run the no-control simulation, the ALINEA 1D sweep (111 values of K_R), and the PI-ALINEA 2D grid search (111 × 111 combinations of K_R and K_P). Runtime is approximately 20–30 minutes. All result figures are saved to a `benchmark_controllers_results/` subfolder and the two CSV result tables are saved automatically.
 
 ### RL Training
 
@@ -112,12 +114,12 @@ This runs 700,000 training episodes. At the reported training speed of approxima
 
 **Recommended training strategy** to find the best-performing policy efficiently:
 
-1. Run `rl_train.py` or `rl_resume.py` for 200,000–300,000 episodes first to allow the policy to mature.
-2. Switch to `rl_resume_bruteforce.py`, which evaluates the policy greedily after every training episode and saves the best-performing network to `checkpoints/best_ann.pt`. This avoids storing an inferior final checkpoint as the result.
+1. Run `rl_train.py` for 200,000–300,000 episodes first to allow the policy to mature.
+2. Switch to `rl_resume_bruteforce.py`, which evaluates the policy greedily after every training episode and saves the best-performing network to `checkpoints/ckpt_best_greedy.pt`. This avoids storing an inferior final checkpoint as the result.
 
 **Controlling the exploration floor:**
 
-In `rl_train.py` and `rl_resume.py`, the `epsilon_end` parameter in the `train_rl_agent` call controls whether exploration is capped:
+In `rl_train.py`, `rl_resume.py`, and `rl_resume_bruteforce.py`, the `epsilon_end` parameter in the training call controls whether exploration is capped:
 
 ```python
 # With exploration floor (recommended for stability):
@@ -155,7 +157,7 @@ Set `EP_MIN` and `EP_MAX` at the top of the script to restrict the scan range. T
 python rl_eval.py
 ```
 
-Set `CHECKPOINT_PATH` at the top to point to the desired checkpoint (e.g. `checkpoints/best_ann.pt`). The script runs the greedy policy on the base demand scenario, performs noise robustness evaluation at five noise levels (50, 100, 150, 200, 250 veh/h), prints all performance indicators, and saves all figures to an `eval_results/` subfolder.
+Set `CHECKPOINT_PATH` at the top to point to the desired checkpoint (e.g. `checkpoints/ckpt_best_greedy.pt`). The script runs the greedy policy on the base demand scenario, performs noise robustness evaluation at five noise levels (50, 100, 150, 200, 250 veh/h), prints all performance indicators, and saves all figures to an `eval_results/` subfolder. The terminal output of this script for the selected policy is archived in `2_data_produced/rl/rl_performance_indicators.txt`.
 
 **Plotting the learning curve:**
 
@@ -173,7 +175,7 @@ Reads `greedy_rewards.csv` and plots the deterministic greedy evaluation reward 
 
 ## Replication Notes
 
-The following assumptions and implementation decisions were made during replication, as the original article does not provide code and leaves several parameters unspecified:
+The following assumptions and implementation decisions were made during replication, as the original article does not provide code and leaves several parameters unspecified. No original code repository was provided by the authors. No external data is required; all inputs are reconstructed from the paper as described below.
 
 **CTM parameters** — The cell length (Δx = 0.5 km) and time step (Δt = 15 s) were identified through trial and error to match the spatio-temporal density contours shown in the original paper. The paper does not state these values explicitly.
 
@@ -191,9 +193,11 @@ The following assumptions and implementation decisions were made during replicat
 
 **Convergence criterion** — The paper states that learning converged after approximately 700,000 episodic iterations but does not specify a convergence criterion. All training campaigns were run for the full 700,000 episodes. No natural convergence was observed; the rolling mean reward plateaued after approximately 200,000–300,000 episodes without further improvement.
 
-**Checkpoint selection** — Since no checkpoint selection rule was reported, all checkpoints were evaluated retrospectively using deterministic greedy action selection. The checkpoint with the highest greedy evaluation reward was selected as the final policy. The best greedy reward of −2062.83 was obtained at episode 263,366.
+**Checkpoint selection** — Since no checkpoint selection rule was reported, all checkpoints were evaluated retrospectively using deterministic greedy action selection. The checkpoint with the highest greedy evaluation reward was selected as the final policy. The best greedy reward of −2062.83 was obtained at episode 263,366, stored as `ckpt_best_greedy.pt`.
 
 **Benchmark optimisation** — The original paper benchmarks the RL controller against a PI controller with fixed gains (K_R = 100, K_P = 4). This replication additionally performs a grid search over K_R ∈ [1, 110] and K_P ∈ [1, 110] for PI-ALINEA, and a 1D sweep for ALINEA, optimising for two criteria: average speed without ramp queue and average speed with ramp queue. The optimised PI-ALINEA controller matches the RL controller on episode reward, suggesting the paper's benchmark comparison is not fully fair.
+
+**Combined results tables** — The benchmark CSV tables (`table1_full_results.csv` and `table2_pct_gap.csv`) contain only the benchmark controller results. RL controller performance indicators were extracted from `rl_performance_indicators.txt` and added manually to the final tables presented in the replication report.
 
 ## Citation
 
