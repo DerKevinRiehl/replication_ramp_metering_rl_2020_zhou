@@ -2,6 +2,7 @@
 
 ## Authors
 Raphaël André Maurice Benvenuti [1], Krishna Kanth Vuppala Narasimha [1], Kevin Riehl [1], Anastasios Kouvelas [1], Michail A. Makridis [1]
+
 [1] ETH Zürich, Institute for Transport Planning and Systems, IVT Group, Zürich, Switzerland.
 
 ## Introduction
