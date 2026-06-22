@@ -1,0 +1,88 @@
+\subsection{State Representation}
+
+The state is represented as a 40-dimensional vector with the following three parts: 
+
+\begin{enumerate}
+    \item The first 38 entries are derived from the mean speed and number of vehicles on each lane of each segment. As described earlier, the network is split into 10 different segments, hence the dimensionality for each network part is computed as:
+    \[
+    n_{\mathrm{segments}} \times n_{\mathrm{lanes}} \times n_{\mathrm{variables}},
+    \]
+    where \(n_{\mathrm{variables}} = 2\), corresponding to the mean speed and the number of vehicles: 
+
+
+   \[
+    \overbrace{7 \times 2 \times 2}^{(1)}
+    +
+    \overbrace{2 \times 1 \times 2}^{(2)}
+    +
+    \overbrace{1 \times 3 \times 2}^{(3)}
+    = 38
+    \]
+
+    The first individual term (1) covers segments 1, 2, 3, 4, 5, 7 and 8.
+    The second term (2) addresses the segments on the ramp, namely segments 9 and 10.
+    The third term (3) covers the merging area with three lanes, specifically segment 6.
+
+
+    \item The 39th entry is given by the ramp meter signal (red or green, so 0 or 1 respectively) of the previous simulation step. 
+
+    \item The 40th and last entry of the state vector depicts the traffic throughput of the merging area bottleneck over the last 30 seconds.
+\end{enumerate}
+
+\subsection{Action Space}
+
+In the considered ramp metering scenario, the traffic signal regulates the vehicle flow from the on-ramp onto the freeway with a two-state signal: red or green.
+Consequently, the action space is binary. 
+
+\subsection{Reward Function}
+
+While congestion at the merging area (Seg. 6) and before the location of the ramp meter device (Seg. 9) should be heavily penalised, high vehicle speeds
+in the mentioned network parts should be rewarded, hence the reward function's definition is:
+
+\begin{equation}
+    R(s_t, a_t) = \frac{\bar{v}_{6,9,10}}{s_{max}} + c_m + c_r
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $\bar{v}_{6,9,10}$ is the mean speed on segments 6, 9, and 10.
+    \item $s_{max}$ denotes the maximum speed limit on the freeway.
+    \item $c_m$ is a penalty for congestion in the merging area (Seg. 6), defined as $-1$ if $\ge 5$ vehicles have a speed $< 1 \text{ m/s}$.
+    \item $c_r$ represents a penalty for ramp queueing (Seg. 9), set to $-1$ if $\ge 9$ vehicles have a speed $< 1 \text{ m/s}$ on segment 9.
+\end{itemize}
+
+
+
+\subsection{Building the RL Agents}
+
+To implement and train the agents, the RLlib library was used \cite{liang2018rllib}, leveraging 32 CPUs for parallel rollout workers. 
+The neural network architecture remained consistent across all three algorithms, featuring a network with one hidden layer, consisting of 128 neurons and a non-linear activation function, namely tanh. 
+The following parameters were specified in the original work:  
+
+
+\begin{table}[H]
+    \centering
+    \caption{Hyper-parameter settings for the RL algorithms}
+    \label{tab:rl_parameters}
+    \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \textbf{Parameter} & \textbf{Ape-X DQN} & \textbf{PPO} & \textbf{A3C} \\ \midrule
+    Sample size (per iteration) & 1,000 & 32,000 & 500 \\
+    Learning rate & $5 \times 10^{-4}$ & $5 \times 10^{-5}$ & $1 \times 10^{-4}$ \\
+    Exploration ($\epsilon$) & $0.1 \to 10^{-4}$ & -- & -- \\
+    Replay buffer size & 5,000,000 & -- & -- \\
+    Convergence (steps) & $\sim 20 \times 10^6$ & $\sim 20 \times 10^6$ & $\sim 300 \times 10^6$ \\ \bottomrule
+    \end{tabular}
+
+    \vspace{0.5em}
+    \begin{minipage}{0.95\linewidth}
+    \small Note: A dash (--) indicates that the parameter was not specified as it is not applicable to the algorithm (e.g., PPO and A3C are on-policy and use neither $\epsilon$-greedy exploration nor a replay buffer).
+    \end{minipage}
+\end{table}
+
+
+The original study claims that the reward curve of all three algorithms converged in training. More specifically, the paper reports that the reward of Ape-X DQN and PPO plateaued after about 20 000 000 training steps, whilst it took approximately 300 000 000 training steps for A3C.
+
+Since the original paper does not specify how random seeds are handled across the parallel rollout workers, we make the following assumption. During training, each worker draws a unique seed for every episode, so that no two workers ever encounter the same traffic realisation. A single seed jointly controls the sampled traffic demand and SUMO's internal stochasticity, ensuring that each episode is internally consistent. The motivation behind this scheme is to prevent the policy from overfitting to a particular inflow pattern, which would otherwise be a likely outcome if all workers shared the same seed.
+
+For the evaluation runs we instead use the episode index as the seed for both demand generation and SUMO. This yields 20 mutually distinct but fully reproducible evaluation episodes, identical across all evaluated controllers, so that the RL agents and baselines are compared on exactly the same set of traffic realisations.

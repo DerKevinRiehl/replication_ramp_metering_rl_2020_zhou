@@ -1,0 +1,39 @@
+Reinforcement learning (RL) \citep{RL_intro} has gained increasing attention in control and
+transportation research, as it enables control policies to be learned through
+interaction with a simulated environment \citep{EPSILON_GREEDY, busoniu2018reinforcement}.
+In intelligent transportation systems, RL has been applied to freeway control
+problems such as ramp metering, variable speed limits, and combined traffic
+management strategies \citep{han2023leveraging}.\\
+Ramp metering regulates on-ramp inflow to reduce congestion and improve
+mainline throughput \citep{papageorgiou2002freeway}. Classical feedback
+controllers, such as ALINEA and PI-ALINEA, use traffic measurements near the
+control target location to determine the metering rate \citep{ALINEA, PI-ALINEA}.
+While these methods are well established for bottlenecks close to the ramp,
+distant downstream bottlenecks introduce delays between metered ramp vehicles
+and their effect at the bottleneck, which can reduce controller stability. This motivates control strategies that can anticipate traffic
+evolution between the on-ramp and the downstream bottleneck.\\
+This work aims to reproduce the study by \cite{ORIGINAL_STUDY}, which formulates
+ramp metering for a distant downstream bottleneck as a Q-learning problem with
+value function approximation. In the original study, the agent observes traffic
+densities at representative locations between the ramp and the bottleneck,
+together with the estimated ramp demand, and selects a discrete metering rate.
+An artificial neural network approximates the action-value function, allowing the
+method to operate in a multidimensional continuous state space without a large
+lookup table.\\
+The purpose of this reproduction is to evaluate the reported performance of the
+proposed RL controller and to assess the reproducibility of the experimental setup.
+As highlighted by \cite{riehl2025revisiting}, transportation simulation studies
+often face reproducibility challenges due to missing source code, incomplete
+calibration information, and insufficiently documented modelling assumptions.
+Although the original article provides the main modelling concepts and controller
+structure, several implementation details required for exact reproduction are
+unspecified or only available graphically. This study therefore reconstructs the
+simulation and learning pipeline from the published description and documents
+the assumptions required to reproduce the reported results.\\
+The remainder of this paper is structured as follows. Section~\ref{sec:Summary_of_origninal_study}
+summarises the original study. Section~\ref{sec:Implementation_details}
+describes the reproduction methodology. Section~\ref{sec:Results_and_Discussion}
+presents and discusses the reproduced results. Finally,
+Section~\ref{sec:Conclusion} concludes this replication study.
+
+%\clearpage

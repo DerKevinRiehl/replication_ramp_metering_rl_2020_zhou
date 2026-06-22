@@ -1,0 +1,57 @@
+
+A replication of \textit{"Ramp Metering for a Distant Downstream
+Bottleneck Using Reinforcement Learning with Value
+Function Approximation"} from Zhou
+et al. (2020), published in the \textit{2020} volume of the Journal of Advanced Transportation (Article ID 8813467).
+
+\section*{Replication Summary}
+
+\textbf{Scope of Replication} --- 
+This project replicates and evaluates the claims made by the original study of
+\cite{ORIGINAL_STUDY}, \emph{Ramp Metering for a Distant Downstream Bottleneck
+Using Reinforcement Learning with Value Function Approximation}. The original
+article proposes a reinforcement learning (RL) based controller for ramp metering
+and reports improved performance when compared with conventional feedback-based ramp
+metering algorithms.
+
+\vspace{1em}
+
+\textbf{Methodology} --- 
+As no supplementary material, source code, or numerical demand data was provided,
+the full experimental setup was re-implemented from scratch in Python. The
+simulation environment was built using a Cell Transmission Model (CTM), while the
+RL agent was implemented and trained using PyTorch. Missing parameters were either assumed or reconstructed from the published figures and
+methodological description.
+
+
+\vspace{1em}
+
+\textbf{Results} --- 
+The no-control and reference PI-ALINEA scenarios could be reproduced closely. However, the reported performance advantage of the
+RL controller could not be confirmed when stronger benchmark controllers were
+introduced. In particular, optimised PI-ALINEA variants matched or outperformed
+the RL controller. 
+
+
+\vspace{1em}
+
+\textbf{What was easy} --- 
+Implementing the basic CTM dynamics and reproducing the qualitative no-control
+and PI-ALINEA traffic patterns was comparatively straightforward once the main
+simulation parameters had been identified.
+
+\vspace{1em}
+
+\textbf{What was difficult} --- 
+The main difficulties were reconstructing undocumented model parameters, matching
+the original demand profile, implementing a stable RL training procedure, and
+comparing results against the original study, which reported mostly graphical
+outputs and no quantitative performance tables.
+
+\vspace{1em}
+
+\textbf{Communication with the original authors} --- 
+No attempt was made to contact the original authors. 
+%No additional material, such
+%as source code, numerical demand profiles, algorithmic parameters, or
+%supplementary documentation, was available beyond the published article.

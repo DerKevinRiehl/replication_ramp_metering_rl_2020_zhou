@@ -1,0 +1,33 @@
+This study reproduced the ramp-metering experiment of Zhou et al. using a
+reimplemented CTM simulation environment, benchmark controllers, and RL training
+pipeline. The no-control and reference PI-ALINEA scenarios were reproduced
+closely, indicating that the reconstructed simulation environment captures the
+main dynamics of the original study.
+
+The reported superiority of the RL controller could not be confirmed once
+stronger benchmark controllers were introduced. The selected RL policy achieved
+stable density tracking and competitive mainline efficiency, but its performance
+was comparable to PI-ALINEA optimised for \(\bar{v}\) and clearly inferior to
+PI-ALINEA optimised for \(\bar{v}_{\mathrm{queue}}\) when ramp queueing delay was
+included. The RL controller therefore appears effective for the objective it was
+trained on, namely control-cell density tracking, but not necessarily superior
+from a system-wide perspective.
+
+The results emphasise three main lessons. First, benchmark controllers must be
+carefully calibrated before claims of RL superiority can be assessed. Second,
+reward design strongly determines the behaviour of learned controllers; omitting
+queue delay encourages policies that may stabilise the mainline by transferring
+delay to the ramp. Third, reproducibility requires more complete reporting than was provided in
+the original article, particularly regarding demand profiles, discretisation
+choices, learning schedules, and checkpoint-selection procedures. Most
+importantly, quantitative performance indicators should be reported alongside
+graphical results to enable direct comparison.
+
+Future work should train the RL agent on randomised demand profiles, include
+ramp queueing delay directly in the reward function, and compare against
+optimised classical controllers under multiple demand scenarios and random
+seeds. Such an evaluation would better determine whether value-function
+approximation provides a genuine advantage over well-tuned feedback ramp-metering
+controllers for distant downstream bottlenecks.
+
+\clearpage

@@ -1,0 +1,127 @@
+# To be filled by the author(s) at the time of submission
+# -------------------------------------------------------
+
+# Title of the article:
+#  - For a successful replication, it shoudl be prefixed with "[Re]"
+#  - For a failed replication, it should be prefixed with "[¬Re]"
+#  - For other article types, no instruction (but please, not too long)
+title: "[RE] Ramp Metering for a Distant Downstream Bot-
+tleneck Using Reinforcement Learning with Value
+Function Approximation"
+
+# List of authors with name, orcid number, email and affiliation
+# Affiliation "*" means contact author
+authors:
+  - name: Raphaël André Maurice Benvenuti
+    orcid: 0009-0008-4493-3722 
+    email: rbenvenuti@ethz.ch
+    affiliations: 1      # * is for contact author
+
+  - name: Krishna Kanth Vuppala Narasimha
+    orcid: 0009-0005-8927-8862
+    email: krishna-kanth.vuppala-narasimha@ivt.baug.ethz.ch
+    affiliations: 1
+
+  - name: Kevin Riehl
+    orcid: 0000-0003-4620-8379
+    email: kriehl@ethz.ch
+    affiliations: 1,*
+
+  - name: Anastasios Kouvelas
+    orcid: 0000-0003-4571-2530
+    email: kouvelas@ethz.ch
+    affiliations: 1
+
+  - name: Michail A. Makridis
+    orcid: 0000-0001-7462-4674
+    email: michail.makridis@ivt.baug.ethz.ch
+    affiliations: 1
+
+# List of affiliations with code (corresponding to author affiliations), name
+# and address. You can also use these affiliations to add text such as "Equal
+# contributions" as name (with no address).
+affiliations:
+  - code:    1
+    name:    Institute for Transportation Systems and Planning, Traffic Engineering Group, ETH Zürich
+    address: 8093 Zurich, Switzerland
+
+
+# List of keywords (adding the programming language might be a good idea)
+keywords: ramp metering, deep reinforcement learning, model predictive control, freeway traffic control, traffic flow theory, simulation, SUMO, Python, TensorFlow, PyTorch, MPC, DRL
+
+# Code URL and DOI (url is mandatory for replication, doi after acceptance)
+# You can get a DOI for your code from Zenodo,
+#   see https://guides.github.com/activities/citable-code/
+code:
+  - url: https://github.com/DerKevinRiehl/replication_ramp_metering_rl_2020_zhouetal
+  - doi:
+  
+# Date URL and DOI (optional if no data)
+data:
+  - url:
+  - doi:
+
+# Information about the original article that has been replicated
+replication:
+ - cite: "Hou, Y., Zhang, X., Graf, P., Tripp, C., & Biagioni, D. (2021). A Cyber-Physical System for Freeway Ramp Meter Signal Control Using Deep Reinforcement Learning in a Connected Environment. In 2021 IEEE Intelligent Transportation Systems Conference (ITSC), pp. 1--8."
+ - bib:  hou2021rampmeter
+ - url:  https://doi.org/10.1109/ITSC48978.2021.9564699
+ - doi:  10.1109/ITSC48978.2021.9564699
+
+
+abstract: "The goal of this replication study is to verify the claim by Hou et al. that, for freeway ramp metering signal control, the reinforcement learning algorithms Ape-X DQN, PPO, and A3C outperform the baseline controllers no ramp metering, fixed-time control and ALINEA. The comparison is conducted under mixed near-congested/congested and extremely congested traffic conditions, using traffic throughput, average vehicle speed and per-vehicle averages for stops, fuel efficiency, CO\textsubscript{2} emissions, and NO\textsubscript{x} emissions as evaluation metrics."
+
+# Bibliography file (yours)
+bibliography: bibliography.bib
+
+# Type of the article
+# Type can be:
+#  * Editorial
+#  * Letter
+#  * Replication
+type: Replication
+
+# Scientific domain of the article (e.g. Computational Neuroscience)
+#  (one domain only & try to be not overly specific)
+domain: Transportation Science
+
+# Coding language (main one only if several)
+language: Python
+
+
+# To be filled by the author(s) after acceptance
+# -----------------------------------------------------------------------------
+
+# For example, the URL of the GitHub issue where review actually occured
+review:
+  - url:
+
+contributors:
+  - name:
+    orcid:
+    role: editor
+  - name:
+    orcid:
+    role: reviewer
+  - name:
+    orcid:
+    role: reviewer
+
+# This information will be provided by the editor
+dates:
+  - received:
+  - accepted:
+  - published:
+
+# This information will be provided by the editor
+article:
+  - number: # Article number will be automatically assigned during publication
+  - doi:    # DOI from Zenodo
+  - url:    # Final PDF URL (Zenodo or rescience website?)
+
+# This information will be provided by the editor
+journal:
+  - name:   "ReScience C"
+  - issn:   2430-3658
+  - volume: 4
+  - issue:  1

@@ -1,0 +1,22 @@
+\documentclass{rescience}
+
+\usepackage{siunitx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{multirow}
+\graphicspath{{figures/}}
+
+\begin{document}
+\input{header.tex}
+\input{content.tex}
+
+\hypersetup{linkcolor=black,urlcolor=darkgray}
+\renewcommand\emph[1]{{\bfseries #1}}
+\setlength\bibitemsep{0pt}
+\clearpage
+\printbibliography
+
+\input{sections/appendix.tex}
+
+\end{document}

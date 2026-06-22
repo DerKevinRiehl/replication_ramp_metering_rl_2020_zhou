@@ -1,0 +1,84 @@
+\clearpage
+\appendix
+
+\section{Software and Computational Environment} \label{sec:a-Software}
+
+All experiments were conducted in Python. The key software dependencies used
+in this replication are listed in Table~\ref{tab:software}. The complete
+environment specification, including all transitive dependencies, is provided in the accompanying code repository.
+
+\begin{table}[h]
+\centering
+\caption{Software dependencies used in this replication.}
+\label{tab:software}
+\begin{tabular}{lll}
+\hline
+\textbf{Package} & \textbf{Version} & \textbf{Purpose} \\
+\hline
+Python      & 3.10.10 & Programming language \\
+NumPy       & 2.2.6 & Numerical computation \\
+PyTorch     & 2.12.0 & Neural network implementation \\
+Matplotlib  & 3.10.9 & Visualisation \\
+SciPy       & 1.15.3 & Signal processing and interpolation \\
+tqdm        & 4.67.3 & Training progress tracking \\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{Hardware.}
+Experiments were run on a machine equipped with an Intel(R) Core(TM) Ultra 7 265 (20 cores) processor (dedicated CPU usage oscillated between 95\% and 100\%), 32 GB of RAM,
+and Intel(R) Graphics graphics card. Training of the RL agent required approximately
+55 hours for 700'000 episodes.
+
+\section{Controller performances}\label{sec:a-controll_perf}
+
+\subsection{Computation of Percentage Gaps}
+
+To compare controllers across indicators with different units and magnitudes,
+relative percentage gaps were computed with respect to the best-performing
+controller for each demand scenario and performance indicator. The convention
+was chosen such that \(0.0\%\) always denotes the best observed result, while
+positive values indicate worse performance relative to that best result.
+
+For indicators where higher values are better, the percentage gap was computed
+as:
+
+\begin{equation}
+    \mathrm{Gap}
+    =
+    \frac{x_{\mathrm{best}} - x}{|x_{\mathrm{best}}|}
+    \cdot 100
+\end{equation}
+
+where \(x\) is the value obtained by a given controller and
+\(x_{\mathrm{best}}\) is the highest value observed among all controllers for
+the same demand scenario.
+
+For indicators where lower values are better, the percentage gap was computed
+as:
+
+\begin{equation}
+    \mathrm{Gap}
+    =
+    \frac{x - x_{\mathrm{best}}}{|x_{\mathrm{best}}|}
+    \cdot 100
+\end{equation}
+
+where \(x_{\mathrm{best}}\) is the lowest value observed among all controllers
+for the same demand scenario.
+
+The higher-is-better indicators are \(\mathrm{VKT}\), \(\bar{v}\),
+\(\bar{v}_{\mathrm{queue}}\), and episode reward. The lower-is-better indicators
+are \(\mathrm{VHT}\) and \(\mathrm{VHT}_{\mathrm{queue}}\).
+
+For the episode reward, larger values are better because the reward is defined
+as a negative penalty on deviations from the desired control-cell density. Thus,
+a value closer to zero represents better density tracking. Results are available in Table \ref{tab:rankings}.
+
+\clearpage
+
+\subsection{Full controller performance results for each indicator and noise demand scenario
+}
+\input{Writing/sections/result_table}
+
+

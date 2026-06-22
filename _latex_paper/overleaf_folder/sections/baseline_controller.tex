@@ -1,0 +1,44 @@
+\subsection{Baseline Controllers}
+
+The following baseline controllers were implemented to benchmark the performance of the RL-based approaches.
+
+\begin{enumerate}[itemsep=0.8em, leftmargin=1.5em]
+
+    \item \textbf{No Ramp Metering (No RM):} No control is applied, meaning the traffic signal will always be green throughout the entire simulation.
+
+    \item \textbf{Fixed-Time Control (Fixed):} Ramp metering is controlled by a fixed cycle consisting of a fixed red phase and a fixed green phase. In the original study the total cycle time is 4 seconds, with a 3-second red phase and a 1-second green phase.
+
+    \item \textbf{ALINEA:} Ramp metering is controlled by a variable cycle consisting of a variable red phase and a 1-second green phase. The cycle time c is recomputed every 15 seconds according to
+
+    \begin{equation}
+        c = \frac{N}{q_{\text{desire}} - q_{\text{freeway}}} \cdot 3600
+    \end{equation}
+
+    where:
+
+    \begin{itemize}[label={}, nosep, leftmargin=1em]
+        \item $N$ is the number of lanes on the ramp (in the given setup $N = 1$),
+        \item $q_{\text{desire}}$ is the desired total traffic inflow at the merging area bottleneck (vph),
+        \item $q_{\text{freeway}}$ is the traffic inflow on the freeway.
+    \end{itemize}
+
+    \medskip
+    Moreover, the desired inflow at the bottleneck at time step $t$ is given by
+
+    \begin{equation}
+        q_{\text{desire}}(t) = q_{\text{total}}(t-1) + C_f(n^* - n_{t-1}),
+    \end{equation}
+
+    where:
+
+    \begin{itemize}[label={}, nosep, leftmargin=1em]
+        \item $q_{\text{total}}(t-1)$ is the combined inflow of freeway and ramp at the previous time step $t-1$,
+        \item $C_f$ is a sensitivity factor,
+        \item $n^*$ is the critical number of vehicles at the merging area for maximum traffic outflow,
+        \item $n_{t-1}$ is the number of vehicles at the merging area at time step $t-1$.
+    \end{itemize}
+
+    \medskip
+    In the original work, the parameters $n^*$ = 10 and $C_f$ = 20 were used \cite{hou2021rampmeter}.
+
+\end{enumerate} 

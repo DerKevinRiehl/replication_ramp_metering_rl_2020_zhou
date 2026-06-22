@@ -1,0 +1,75 @@
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{p{5.2cm}rrrrrrr}
+\caption{Full controller performance results across base and noisy demand scenarios.}\label{tab:full_results}\\
+\toprule
+Controller & \makecell{Noise std\\veh/h} & \makecell{VKT\\veh$\cdot$km} & \makecell{VHT\\veh$\cdot$h} & \makecell{VHT$_{\mathrm{queue}}$\\veh$\cdot$h} & \makecell{$\bar{v}$\\km/h} & \makecell{$\bar{v}_{\mathrm{queue}}$\\km/h} & \makecell{Episode\\reward} \\
+\midrule
+\endfirsthead
+\caption[]{Full controller performance results across base and noisy demand scenarios. (continued)}\\
+\toprule
+\textbf{Controller} & \makecell{\textbf{Noise std}\\\textbf{veh/h}} & \makecell{\textbf{VKT}\\\textbf{veh$\cdot$km}} & \makecell{\textbf{VHT}\\\textbf{veh$\cdot$h}} & \makecell{\textbf{VHT$_{\mathrm{queue}}$}\\\textbf{veh$\cdot$h}} & \makecell{\textbf{$\bar{v}$}\\\textbf{km/h}} & \makecell{\textbf{$\bar{v}_{\mathrm{queue}}$}\\\textbf{km/h}} & \makecell{\textbf{Episode}\\\textbf{reward}} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{8}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+No control & 0 & 27700.62 & 309.79 & 309.79 & 89.42 & 89.42 & -6852.17 \\
+ALINEA ($K_R$=10) & 0 & 27700.62 & 232.49 & 415.94 & 119.15 & 66.60 & -2281.23 \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 0 & 27700.62 & 232.05 & 381.98 & 119.37 & 72.52 & -2211.65 \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 0 & 27700.62 & 232.07 & 381.00 & 119.36 & 72.70 & -2213.92 \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 0 & 27700.62 & 233.74 & 419.41 & 118.51 & 66.05 & -2481.82 \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 0 & 27700.62 & 231.12 & 404.59 & 119.85 & 68.47 & -2062.83 \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 0 & 27700.62 & 231.74 & 351.09 & 119.53 & 78.90 & -2162.09 \\
+RL controller (ep 263366) & 0 & 27696.70 & 231.09 & 465.37 & 119.85 & 59.52 & -2062.83 \\
+\midrule
+No control & 50 & 27690.87 & 309.06 & 309.06 & 89.60 & 89.60 & -6854.04 \\
+ALINEA ($K_R$=10) & 50 & 27690.87 & 232.42 & 415.22 & 119.14 & 66.69 & -2284.73 \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 50 & 27690.87 & 232.03 & 385.96 & 119.34 & 71.75 & -2222.98 \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 50 & 27690.87 & 232.04 & 385.56 & 119.34 & 71.82 & -2224.51 \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 50 & 27690.87 & 233.59 & 418.68 & 118.55 & 66.14 & -2471.97 \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 50 & 27690.87 & 231.04 & 422.34 & 119.85 & 65.57 & -2064.03 \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 50 & 27690.87 & 231.66 & 352.03 & 119.53 & 78.66 & -2163.82 \\
+RL controller (ep 263366) & 50 & 27684.80 & 230.98 & 473.81 & 119.86 & 58.43 & -2065.24 \\
+\midrule
+No control & 100 & 27619.04 & 308.53 & 308.53 & 89.52 & 89.52 & -6861.00 \\
+ALINEA ($K_R$=10) & 100 & 27619.04 & 231.74 & 418.67 & 119.18 & 65.97 & -2280.96 \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 100 & 27619.04 & 231.42 & 396.43 & 119.34 & 69.67 & -2230.15 \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 100 & 27619.04 & 231.42 & 392.87 & 119.35 & 70.30 & -2229.82 \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 100 & 27619.04 & 233.00 & 420.11 & 118.54 & 65.74 & -2481.98 \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 100 & 27619.04 & 230.47 & 418.16 & 119.84 & 66.05 & -2077.39 \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 100 & 27619.04 & 230.95 & 355.10 & 119.59 & 77.78 & -2154.37 \\
+RL controller (ep 263366) & 100 & 27612.90 & 230.51 & 459.77 & 119.79 & 60.06 & -2093.03 \\
+\midrule
+No control & 150 & 27573.66 & 305.89 & 305.89 & 90.14 & 90.14 & -6831.61 \\
+ALINEA ($K_R$=10) & 150 & 27573.66 & 231.39 & 407.10 & 119.17 & 67.73 & -2291.89 \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 150 & 27573.66 & 231.16 & 395.99 & 119.28 & 69.63 & -2255.83 \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 150 & 27573.66 & 231.15 & 391.24 & 119.29 & 70.48 & -2253.44 \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 150 & 27573.66 & 232.92 & 411.97 & 118.38 & 66.93 & -2536.98 \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 150 & 27573.66 & 230.12 & 408.89 & 119.82 & 67.44 & -2089.26 \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 150 & 27573.66 & 230.80 & 361.12 & 119.47 & 76.36 & -2198.59 \\
+RL controller (ep 263366) & 150 & 27564.70 & 230.20 & 434.14 & 119.74 & 63.49 & -2114.65 \\
+\midrule
+No control & 200 & 27673.15 & 304.38 & 304.38 & 90.92 & 90.92 & -6799.73 \\
+ALINEA ($K_R$=10) & 200 & 27673.15 & 232.30 & 410.42 & 119.13 & 67.43 & -2292.58 \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 200 & 27673.15 & 232.23 & 425.02 & 119.16 & 65.11 & -2281.76 \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 200 & 27673.15 & 232.19 & 422.52 & 119.18 & 65.49 & -2274.67 \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 200 & 27673.15 & 233.08 & 406.37 & 118.73 & 68.10 & -2418.12 \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 200 & 27673.15 & 230.97 & 455.91 & 119.81 & 60.70 & -2079.41 \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 200 & 27673.15 & 231.56 & 377.14 & 119.51 & 73.38 & -2173.60 \\
+RL controller (ep 263366) & 200 & 27668.50 & 231.08 & 436.15 & 119.74 & 63.44 & -2102.57 \\
+\midrule
+No control & 250 & 27630.56 & 311.39 & 311.39 & 88.73 & 88.73 & -7037.18 \\
+ALINEA ($K_R$=10) & 250 & 27630.56 & 232.32 & 432.74 & 118.94 & 63.85 & -2355.20 \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 250 & 27630.56 & 232.00 & 412.64 & 119.10 & 66.96 & -2304.48 \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 250 & 27630.56 & 231.99 & 407.66 & 119.10 & 67.78 & -2302.28 \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 250 & 27630.56 & 233.10 & 425.50 & 118.53 & 64.94 & -2481.05 \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 250 & 27630.56 & 230.71 & 461.15 & 119.76 & 59.92 & -2097.64 \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 250 & 27630.56 & 231.27 & 399.37 & 119.48 & 69.19 & -2187.24 \\
+RL controller (ep 263366) & 250 & 27622.60 & 230.80 & 449.73 & 119.68 & 61.42 & -2125.13 \\
+\end{longtable}
+\endgroup

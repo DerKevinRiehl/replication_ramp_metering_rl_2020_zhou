@@ -1,0 +1,88 @@
+% Required packages in the preamble:
+% \usepackage{pdflscape}
+% \usepackage{longtable}
+% \usepackage{booktabs}
+% \usepackage{array}
+% \usepackage{makecell}
+
+
+
+%\begin{landscape}
+%\clearpage
+
+\begingroup
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{longtable}{p{5.2cm}rrrrrrr}
+\caption{Percentage gap from best-performing controller per indicator and demand scenario. 0.0\% indicates the best result; higher values indicate worse performance.}\label{tab:rankings}\\
+\toprule
+\textbf{Controller} & \makecell{\textbf{Noise std}\\\textbf{veh/h}} & \makecell{\textbf{VKT}\\\textbf{veh$\cdot$km}} & \makecell{\textbf{VHT}\\\textbf{veh$\cdot$h}} & \makecell{VHT$_{\mathrm{queue}}$\\\textbf{veh$\cdot$h}} & \makecell{\textbf{$\bar{v}$}\\\textbf{km/h}} & \makecell{\textbf{$\bar{v}_{\mathrm{queue}}$}\\\textbf{km/h}} & \makecell{\textbf{Episode}\\\textbf{reward}} \\
+\midrule
+\endfirsthead
+\caption[]{Percentage gap from best-performing controller (continued)}\\
+\toprule
+Controller & \makecell{Noise std\\veh/h} & \makecell{VKT\\veh$\cdot$km} & \makecell{VHT\\veh$\cdot$h} & \makecell{VHT$_{\mathrm{queue}}$\\veh$\cdot$h} & \makecell{$\bar{v}$\\km/h} & \makecell{$\bar{v}_{\mathrm{queue}}$\\km/h} & \makecell{Episode\\reward} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{8}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+No control & 0 & 0.0\% & 34.1\% & 0.0\% & 25.4\% & 0.0\% & 232.2\% \\
+ALINEA ($K_R$=10) & 0 & 0.0\% & 0.6\% & 34.3\% & 0.6\% & 25.5\% & 10.6\% \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 0 & 0.0\% & 0.4\% & 23.3\% & 0.4\% & 18.9\% & 7.2\% \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 0 & 0.0\% & 0.4\% & 23.0\% & 0.4\% & 18.7\% & 7.3\% \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 0 & 0.0\% & 1.1\% & 35.4\% & 1.1\% & 26.1\% & 20.3\% \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 0 & 0.0\% & 0.0\% & 30.6\% & 0.0\% & 23.4\% & 0.0\% \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 0 & 0.0\% & 0.3\% & 13.3\% & 0.3\% & 11.8\% & 4.8\% \\
+RL controller (ep 263366) & 0 & 0.0\% & 0.0\% & 50.2\% & 0.0\% & 33.4\% & 0.0\% \\
+\midrule
+No control & 50 & 0.0\% & 33.8\% & 0.0\% & 25.2\% & 0.0\% & 232.1\% \\
+ALINEA ($K_R$=10) & 50 & 0.0\% & 0.6\% & 34.3\% & 0.6\% & 25.6\% & 10.7\% \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 50 & 0.0\% & 0.5\% & 24.9\% & 0.4\% & 19.9\% & 7.7\% \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 50 & 0.0\% & 0.5\% & 24.8\% & 0.4\% & 19.8\% & 7.8\% \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 50 & 0.0\% & 1.1\% & 35.5\% & 1.1\% & 26.2\% & 19.8\% \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 50 & 0.0\% & 0.0\% & 36.7\% & 0.0\% & 26.8\% & 0.0\% \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 50 & 0.0\% & 0.3\% & 13.9\% & 0.3\% & 12.2\% & 4.8\% \\
+RL controller (ep 263366) & 50 & 0.0\% & 0.0\% & 53.3\% & 0.0\% & 34.8\% & 0.1\% \\
+\midrule
+No control & 100 & 0.0\% & 33.9\% & 0.0\% & 25.3\% & 0.0\% & 230.3\% \\
+ALINEA ($K_R$=10) & 100 & 0.0\% & 0.6\% & 35.7\% & 0.6\% & 26.3\% & 9.8\% \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 100 & 0.0\% & 0.4\% & 28.5\% & 0.4\% & 22.2\% & 7.4\% \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 100 & 0.0\% & 0.4\% & 27.3\% & 0.4\% & 21.5\% & 7.3\% \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 100 & 0.0\% & 1.1\% & 36.2\% & 1.1\% & 26.6\% & 19.5\% \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 100 & 0.0\% & 0.0\% & 35.5\% & 0.0\% & 26.2\% & 0.0\% \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 100 & 0.0\% & 0.2\% & 15.1\% & 0.2\% & 13.1\% & 3.7\% \\
+RL controller (ep 263366) & 100 & 0.0\% & 0.0\% & 49.0\% & 0.0\% & 32.9\% & 0.8\% \\
+\midrule
+No control & 150 & 0.0\% & 32.9\% & 0.0\% & 24.8\% & 0.0\% & 227.0\% \\
+ALINEA ($K_R$=10) & 150 & 0.0\% & 0.6\% & 33.1\% & 0.5\% & 24.9\% & 9.7\% \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 150 & 0.0\% & 0.5\% & 29.5\% & 0.5\% & 22.8\% & 8.0\% \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 150 & 0.0\% & 0.4\% & 27.9\% & 0.4\% & 21.8\% & 7.9\% \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 150 & 0.0\% & 1.2\% & 34.7\% & 1.2\% & 25.7\% & 21.4\% \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 150 & 0.0\% & 0.0\% & 33.7\% & 0.0\% & 25.2\% & 0.0\% \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 150 & 0.0\% & 0.3\% & 18.1\% & 0.3\% & 15.3\% & 5.2\% \\
+RL controller (ep 263366) & 150 & 0.0\% & 0.0\% & 41.9\% & 0.1\% & 29.6\% & 1.2\% \\
+\midrule
+No control & 200 & 0.0\% & 31.8\% & 0.0\% & 24.1\% & 0.0\% & 227.0\% \\
+ALINEA ($K_R$=10) & 200 & 0.0\% & 0.6\% & 34.8\% & 0.6\% & 25.8\% & 10.3\% \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 200 & 0.0\% & 0.5\% & 39.6\% & 0.5\% & 28.4\% & 9.7\% \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 200 & 0.0\% & 0.5\% & 38.8\% & 0.5\% & 28.0\% & 9.4\% \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 200 & 0.0\% & 0.9\% & 33.5\% & 0.9\% & 25.1\% & 16.3\% \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 200 & 0.0\% & 0.0\% & 49.8\% & 0.0\% & 33.2\% & 0.0\% \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 200 & 0.0\% & 0.3\% & 23.9\% & 0.3\% & 19.3\% & 4.5\% \\
+RL controller (ep 263366) & 200 & 0.0\% & 0.0\% & 43.3\% & 0.1\% & 30.2\% & 1.1\% \\
+\midrule
+No control & 250 & 0.0\% & 35.0\% & 0.0\% & 25.9\% & 0.0\% & 235.5\% \\
+ALINEA ($K_R$=10) & 250 & 0.0\% & 0.7\% & 39.0\% & 0.7\% & 28.0\% & 12.3\% \\
+ALINEA opt $\bar{v}$ ($K_R$=23) & 250 & 0.0\% & 0.6\% & 32.5\% & 0.6\% & 24.5\% & 9.9\% \\
+ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=21) & 250 & 0.0\% & 0.6\% & 30.9\% & 0.6\% & 23.6\% & 9.8\% \\
+PI-ALINEA ($K_R$=100, $K_P$=4) & 250 & 0.0\% & 1.0\% & 36.6\% & 1.0\% & 26.8\% & 18.3\% \\
+PI-ALINEA opt $\bar{v}$ ($K_R$=2, $K_P$=93) & 250 & 0.0\% & 0.0\% & 48.1\% & 0.0\% & 32.5\% & 0.0\% \\
+PI-ALINEA opt $\bar{v}_{\mathrm{queue}}$ ($K_R$=2, $K_P$=56) & 250 & 0.0\% & 0.2\% & 28.3\% & 0.2\% & 22.0\% & 4.3\% \\
+RL controller (ep 263366) & 250 & 0.0\% & 0.0\% & 44.4\% & 0.1\% & 30.8\% & 1.3\% \\
+\end{longtable}
+%\end{landscape}
+\endgroup

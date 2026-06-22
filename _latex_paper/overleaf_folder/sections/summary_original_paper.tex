@@ -1,0 +1,40 @@
+The original study from \cite{ORIGINAL_STUDY} addresses the problem of ramp
+metering for a bottleneck located far downstream of the metered ramp. Conventional
+linear feedback-type controllers, such as ALINEA \citep{ALINEA} or PI-ALINEA \citep{PI-ALINEA},
+suffer from stability issues in this setting due to the significant time-delay between
+the ramp and the distant bottleneck: by the time metered vehicles reach the bottleneck,
+its traffic state may have changed substantially from when it was sampled to compute
+the metering rate. Rather than compensating for this delay through predictors of traffic
+flow evolution, the authors propose formulating the problem as a Q-learning problem in
+which an agent learns a non-linear feedback policy directly from interaction with a
+traffic simulation environment.
+
+The state vector consists of four continuous variables: traffic densities measured at
+three representative locations along the stretch between the ramp and the downstream
+bottleneck ($\rho_1$, $\rho_2$, $\rho_3$), and an estimated ramp demand $D_\text{ramp}$.
+The agent selects a discrete metering rate at each time step, with the action space
+bounded above by the estimated ramp demand to avoid unrealistic control actions. The
+reward function penalises deviations of the downstream bottleneck density $\rho_3$ from
+a desired critical density value.
+
+To handle the computational burden of the four-dimensional continuous state space, the
+Q-value function is approximated by an artificial neural network (ANN) rather than a
+lookup table, reducing the number of parameters to learn from an estimated 25.6 million
+Q-values to approximately 67,000. State variables are first encoded via a tile coding
+scheme into a 140-dimensional binary feature vector before being passed to the ANN.
+Parameters are updated online at each time step using an incremental back-propagation
+algorithm \citep{Backpropagation}.
+
+The approach is validated on a synthetic freeway section implemented in the Cell
+Transmission Model (CTM), consisting of a three-lane mainline with a lane-drop to two
+lanes located 3500\,m downstream of the metered ramp.
+Learning is reported to have converged after
+approximately 0.7 million episodic iterations. The proposed method is compared against
+an uncontrolled baseline and a conventional PI controller (PI-ALINEA \citep{PI-ALINEA}). Results show that the learned
+policy successfully maintains the bottleneck density close to the desired value with
+negligible oscillations, whereas the PI controller exhibits some instability at this
+distance. A robustness analysis under additive white noise on traffic demands shows
+satisfactory performance up to a standard deviation of 200\,veh/h.
+%\clearpage
+
+
