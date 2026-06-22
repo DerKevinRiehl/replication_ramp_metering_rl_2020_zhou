@@ -1,10 +1,9 @@
-# Replication Study of "Ramp Metering for a Distant Downstream Bottleneck Using Reinforcement Learning with Value Function Approximation"
+# [Re] Ramp Metering for a Distant Downstream Bottleneck Using Reinforcement Learning with Value Function Approximation [Zhou et al. 2020]
 
 ## Authors
+Raphaël André Maurice Benvenuti [1], Krishna Kanth Vuppala Narasimha [1], Kevin Riehl [1], Anastasios Kouvelas [1], Michail A. Makridis [1]
 
-**Raphaël Benvenuti**  
-Institute for Transport Planning and Systems (IVT), ETH Zürich  
-Replication project, Spring Semester 2026
+[1] ETH Zürich, Institute for Transport Planning and Systems, IVT Group, Zürich, Switzerland.
 
 ## Introduction
 
@@ -199,6 +198,13 @@ The following assumptions and implementation decisions were made during replicat
 **Combined results tables** — The benchmark CSV tables (`table1_full_results.csv` and `table2_pct_gap.csv`) contain only the benchmark controller results. RL controller performance indicators were extracted from `rl_performance_indicators.txt` and added manually to the final tables presented in the replication report.
 
 ## Citation
+
+Replication Study:
+```
+Benvenuti, R.A.M., Vuppala Narasimha, K.K., Riehl, K., Kouvelas, A. and Makridis, M.A. (2026). 
+[RE] Ramp Metering for a Distant Downstream Bottleneck Using Reinforcement Learning with Value Function Approximation. ReScience C, 202X(X).
+DOI: [To be added upon publication]
+```
 
 Original Paper:
 ```
